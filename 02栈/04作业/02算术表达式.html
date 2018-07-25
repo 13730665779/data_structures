@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>数据结构</title>
+    <script src="Stack.js"></script>
+    <script>
+        function comparePriority(a, b) {
+            // 比较栈顶操作符 a 和即将入栈的操作符 b 的优先级
+            // a优先于b，返回 1，表示栈顶元素优先级较高，操作符需要出栈
+            if (!a) { // a为空时，b入栈
+                return 0;
+            }
+
+            if ((a === '(' && b !== ')') || b === '(') { // a为'('，或者b为'('时，直接入栈
+                return 0;
+            }
+            if ((b === '*' || b === '/') && (a === '+' || a === '-')) { // b优先级大于a时，直接入栈
+                return 0;
+            }
+            return 1;
+        }
+
+        function isOperator(tmp) {
+            return ['+', '-', '*', '/', '(', ')'].indexOf(tmp) > -1;
+        }
+
+        function infixToPostfix(exp) {
+            var operatorStack = new Stack();
+            var postfixExp = [];
+
+            exp.split('').forEach(function (char) {
+
+                if (isOperator(char)) {
+                    // 比较优先级
+                    while(comparePriority(operatorStack.peek(), char)) {
+                        var tmp = operatorStack.pop();
+
+                        if (tmp !== '(' && tmp !== ')') {
+                            postfixExp.push(tmp);
+                        }
+
+                        if (tmp === '(' && char === ')') { // 匹配到左括号的时候，结束循环。
+                            break;
+                        }
+                    }
+                    if (char !== ')') {
+                        operatorStack.push(char);
+                    }
+                } else {
+                    postfixExp.push(char);
+                }
+            });
+            while(operatorStack.length()) {
+                postfixExp.push(operatorStack.pop());
+            }
+            return postfixExp.join('');
+        }
+
+        function computePostfix(exp) {
+            var numStack = new Stack();
+            exp.split('').forEach(function (char) {
+                if (char.trim()) {
+                    if (!isOperator(char)) {
+                        numStack.push(char);
+                    } else {
+                        var tmp = numStack.pop();
+                        numStack.push(eval(numStack.pop()+char+tmp));
+                    }
+                }
+            });
+            return numStack.pop();
+        }
+
+        var postfixExp = infixToPostfix('(8-2)/(3-1)*(9-6)');
+        var postfixExpValue = computePostfix(postfixExp);
+
+        console.log(postfixExp); // 82-31-/96-*
+        console.log(postfixExpValue); // 9
+
+    </script>
+</head>
+<body>
+
+
+</body>
+</html>

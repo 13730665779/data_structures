@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title>02_08判断给定值是否在列表中</title>
+    <script>
+        function List() {
+            //队列的长度
+            var listSize = 0;
+            var dataStore = [];
+            var pos;
+            this.append = function (element) {
+                //2,给数组赋值
+                dataStore[listSize] = element;
+                //1,长度自增
+                listSize++;
+            };
+            this.find=function (element) {
+                for (var i = 0; i < dataStore.length; ++i) {
+                    if (dataStore[i] == element) {
+
+                        return i;
+                    }
+                }
+                return -1;
+            }
+
+            this.remove=function(element) {
+                var foundAt = this.find(element);
+                if (foundAt > -1) {
+                    dataStore.splice(foundAt,1);
+                    listSize--;
+                    return true;
+                }
+                return false;
+            }
+            this.length = function() {
+                return listSize;
+            }
+
+            this.toString=function() {
+                return dataStore;
+            }
+
+            this.insert=function(element, after) {
+                var insertPos = this.find(after);
+                if (insertPos > -1) {
+                    dataStore.splice(insertPos+1, 0, element);
+                    ++listSize;
+                    return true;
+                }
+                return false;
+            }
+
+            this.clear= function() {
+                delete dataStore;
+                dataStore = [];
+                listSize = pos = 0;
+            }
+
+            this.contains=function(element) {
+                for (var i = 0; i < dataStore.length; ++i) {
+                    if (dataStore[i] == element) {
+                        return true;
+                    }
+                }
+                return false;
+            }
+        }
+        var list = new List();
+        list.append("中国");
+        list.append("美国");
+        list.append("日本");
+
+        console.log(list.contains('美妹妹'))
+
+
+    </script>
+</head>
+<body>
+
+
+</body>
+</html>

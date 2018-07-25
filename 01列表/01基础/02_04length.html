@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>队列的长度</title>
+    <script>
+        function List() {
+
+            //2,存储数组
+            this.dataStore = [];
+            //存储当前的数据
+            this.append=function (element) {
+                //设置当前的数据
+                this.dataStore[this.dataStore.length] = element;
+
+            }
+            //列表找到功能
+            this.find=function (element) {
+                //获得数组的长度
+                var length = this.dataStore.length;
+                //2,查找具体数据
+                for(var i=0;i<length;i++){
+                    //对每个数据进行对比,如果找到返回当前数据的下标
+                    if(this.dataStore[i]==element){
+                        return i;
+                    }
+                }
+                return -1;
+
+            }
+            //删除功能
+            this.remove=function (element) {
+                //查找数据
+                var index = this.find(element);
+                //如果当前的下标为-1，那么在数组里面没有这个元素，就直接返回
+                if(index==-1)
+                    return;
+                //获得当前数组的长度
+                var length = this.dataStore.length;
+                //循环遍历当前的数据
+                for(var i=index;i<length;i++){
+                    if(i==length-1){
+                        this.dataStore[i]=null;
+                    }else{
+                        this.dataStore[i]=  this.dataStore[i+1]
+                    }
+                }
+                this.dataStore.length--;
+
+            }
+
+            this.length = function () {
+                return this.dataStore.length;
+            }
+
+        }
+
+        //1,创建一个列表对象
+        var list = new List();
+        //2,添加数据
+        list.append("小刚");
+        list.append("小杰");
+        list.append("小超");
+        list.append("小静");
+        //3， 查找数据
+        var index=list.find("小静");
+
+        //4,删除数据
+        list.remove("小刚");
+
+        console.log(list.length());
+
+
+    </script>
+</head>
+<body>
+
+
+</body>
+</html>

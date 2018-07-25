@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <title>01创建列表</title>
+    <script>
+        function List() {
+            var listSize = 0;
+            var dataStore = [];
+            this.append = function (element) {
+                //1,长度自增
+                listSize++;
+                //2,给数组赋值
+                dataStore[listSize] = element;
+            };
+        }
+    </script>
+</head>
+<body>
+
+
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>数据结构</title>
+    <script src="Person.js"></script>
+    <script src="List.js"></script>
+    <script>
+
+        var list = new List();
+
+        for (var i = 0; i < 20; i++) {
+            var sex = Math.floor(Math.random() * 2);
+            var person = new Person('人造人' + i + "号", sex);
+            list.append(person);
+        }
+
+        function getPersons(list, sex) {
+            list.forEach(function (item) {
+                if (item.getSex() == sex) {
+                    console.log("当前" + item.getName() + "的性别是" + sex);
+                }
+
+            })
+        }
+
+        getPersons(list,0);
+
+    </script>
+</head>
+<body>
+
+
+</body>
+</html>
